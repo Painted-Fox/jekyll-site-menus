@@ -1,5 +1,5 @@
-Jekyll Category Pagination
-==========================
+Jekyll Site Menus
+=================
 
 This jekyll plugin enables enables you to define site menues within your
 `_config.yml` file.
