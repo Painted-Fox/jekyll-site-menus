@@ -36,18 +36,30 @@ module Jekyll
 
       output += " class=\"menu level-#{level}\">\n"
 
-      menu.each do | name, value |
-        if (value.kind_of? String)
-          # Render the menu item
-          output += renderMenuItem(context, name, value, level)
-        elsif (value.kind_of? Hash)
-          # Render the sub-menu
-          output += "#{indent}  <li>\n"
-          output += renderMenu(context, value, level + 1)
-          output += "#{indent}  </li>\n"
+      indent = "  " * (level)
+      menu.each do | item |
+        item.each do | name, value |
+          if (value.kind_of? String)
+            # Render the menu item
+            output += "#{indent}<li>\n"
+            output += renderMenuItem(context, name, value, level)
+            output += "#{indent}</li>\n"
+          elsif (value.kind_of? Array and value.size > 0)
+            output += "#{indent}<li>\n"
+            if (value[0].kind_of? String)
+              output += renderMenuItem(context, name, value[0], level)
+              submenu = value [1..value.size]
+            else
+              submenu = value
+            end
+            # Render the sub-menu
+            output += renderMenu(context, submenu, level + 2)
+            output += "#{indent}</li>\n"
+          end
         end
       end
 
+      indent = "  " * (level - 1)
       output += "#{indent}</ul>\n"
     end
 
@@ -70,15 +82,13 @@ module Jekyll
       end
 
       indent = "  " * level
-      output = "#{indent}<li>\n"
-      output += "#{indent}  <a href=\"#{URI.escape(value)}\""
+      output = "#{indent}  <a href=\"#{URI.escape(value)}\""
       if (selected)
         output += " class=\"selected\""
       end
       output += ">"
       output += name
       output += "</a>\n"
-      output += "#{indent}</li>\n"
     end
   end
 

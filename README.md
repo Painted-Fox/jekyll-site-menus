@@ -18,12 +18,12 @@ following:
 
     menus:
         main:
-            Home: /
-            Archives: /archives/
-            About: /about/
+        - Home: /
+        - Archives: /archives/
+        - About: /about/
         side:
-            Categories: /categories/
-            Tags: /tags/
+        - Categories: /categories/
+        - Tags: /tags/
 
 *Notice that you can create multiple menus.*
 
@@ -34,13 +34,15 @@ You can also specify a submenus like so:
 
     menus:
         main:
-            Home: /
-            Art: /art/
-                Archives: /art/archives/
-                About: /art/about/
-            Technology: /technology/
-                Archives: /technology/archives/
-                About: /technology/about/
+        - Home: /
+        - Art:
+            - /art/
+            - Archives: /art/archives/
+            - About: /art/about/
+        - Technology:
+            - /technology/
+            - Archives: /technology/archives/
+            - About: /technology/about/
 
 Keep in mind you'll probably have to modify your layout's CSS to support
 submenus.
