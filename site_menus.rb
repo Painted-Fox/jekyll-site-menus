@@ -27,14 +27,15 @@ module Jekyll
 
     def renderMenu(context, menu, level)
       indent = "  " * (level - 1)
-      output = "#{indent}<ul"
+      output = "#{indent}"
+      isFirstLvl = level == 1
 
       # Give this menu an id attribute if we're on the first level.
-      if (level == 1)
-        output += " id=\"#{@menu_name}-menu\""
+      if (isFirstLvl)
+        output += "<ul id=\"#{@menu_name}-menu\" class=\"menu level-#{level}\">\n"
+      else
+        output += "<div class=\"sub-menu level-#{level}\"><ul class=\"menu sub-menu level-#{level}\">\n"
       end
-
-      output += " class=\"menu level-#{level}\">\n"
 
       indent = "  " * (level)
       menu.each do | item |
@@ -53,14 +54,19 @@ module Jekyll
               submenu = value
             end
             # Render the sub-menu
-            output += renderMenu(context, submenu, level + 2)
+            output += renderMenu(context, submenu, level + 1)
             output += "#{indent}</li>\n"
           end
         end
       end
 
       indent = "  " * (level - 1)
-      output += "#{indent}</ul>\n"
+
+      if (isFirstLvl)
+        output += "#{indent}</ul>\n"
+      else
+        output += "#{indent}</ul></div>\n"
+      end
     end
 
     def renderMenuItem(context, name, value, level)
