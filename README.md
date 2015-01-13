@@ -1,8 +1,8 @@
 Jekyll Site Menus
 =================
 
-This jekyll plugin enables enables you to define site menues within your
-`_config.yml` file.
+This jekyll plugin enables enables you to define site menues using an additional 
+`_data/menus.yml` file.
 
 Installation
 ------------
