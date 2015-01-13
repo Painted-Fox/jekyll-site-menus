@@ -19,7 +19,7 @@ module Jekyll
 
     def render(context)
       site = context.registers[:site]
-      menu = site.config['menus'][@menu_name]
+      menu = site.data['menus'][@menu_name]
       level = 1
 
       renderMenu(context, menu, level)
